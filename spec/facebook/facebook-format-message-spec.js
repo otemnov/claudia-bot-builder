@@ -90,6 +90,14 @@ describe('Facebook format message', () => {
       expect(message.quick_replies[0].content_type).toBe('user_email');
     });
 
+    it('should add a quick reply with a phone number', () => {
+      const message = new formatFbMessage.Text('Some text')
+        .addQuickReplyUserPhoneNumber()
+        .get();
+      expect(message.quick_replies.length).toBe(1);
+      expect(message.quick_replies[0].content_type).toBe('user_phone_number');
+    });
+
     it('should throw an error if add null quick reply', () => {
       const message = new formatFbMessage.Text('Some text');
       expect(() => message.addQuickReplyItem(null)).toThrowError(TypeError, '"quickReply" is null or not defined');
